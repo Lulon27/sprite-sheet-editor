@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.MainWindowController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.25, 0.75" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+               <children>
+                  <VBox layoutX="76.0" layoutY="82.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Start" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnLoadImg" mnemonicParsing="false" onAction="#onClickLoadImg" text="Load sprite sheet image..." />
+                        <Button fx:id="btnCreateGrid" mnemonicParsing="false" onAction="#onClickCreateGrid" text="Create grid..." />
+                        <Separator>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Separator>
+                        <Label text="Sprites" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TreeView prefHeight="200.0" prefWidth="200.0" />
+                        <GridPane hgap="5.0" vgap="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="New sprite..." />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Add animation..." />
+                              <Button mnemonicParsing="false" text="Edit animation..." />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Delete selected..." />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+        </AnchorPane>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" vbarPolicy="ALWAYS" SplitPane.resizableWithParent="false">
+              <content>
+                  <Canvas fx:id="drawingCanvas" height="300.0" width="300.0" />
+              </content>
+            </ScrollPane>
+        <ScrollPane fitToWidth="true" minViewportWidth="150.0" prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                     <children>
+                        <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Selected frame" textFill="#9f9f9f">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Frame expansion" textFill="#5f5f5f">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button fx:id="btnMergeRight" mnemonicParsing="false" text="Merge with right frames" />
+                              <Button fx:id="btnMergeLeft" mnemonicParsing="false" text="Merge with left frames" />
+                              <Button fx:id="btnMergeAbove" mnemonicParsing="false" text="Merge with above frames" />
+                              <Button fx:id="btnMergeBelow" mnemonicParsing="false" text="Merge with below frames" />
+                              <Label text="User data" textFill="#5f5f5f">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TableView>
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Data type" />
+                                  <TableColumn prefWidth="75.0" text="Name" />
+                                    <TableColumn prefWidth="75.0" text="Default value" />
+                                    <TableColumn prefWidth="75.0" text="Current Value" />
+                                </columns>
+                              </TableView>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="Data type" />
+                                          <ComboBox prefWidth="150.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="Name" />
+                                          <TextField />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="Default value" />
+                                          <TextField />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" text="Add variable" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
