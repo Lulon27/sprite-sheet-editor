@@ -150,7 +150,7 @@ public class SpriteSheetDisplay implements FrameGridListener
 	
 	public boolean isImageLoaded()
 	{
-		return this.currentImage != null;
+		return this.currentImage.getValue() != null;
 	}
 	
 	public void generateFrames(FramePatternGenerator generator)

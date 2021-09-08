@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -113,6 +114,16 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 			FXUtil.showError("No stage is set for " + this.getClass().getSimpleName());
 			return;
 		}
+		
+		if(this.spriteSheetDisplay.isImageLoaded())
+		{
+			if(!FXUtil.showWarning("An image is already loaded. If you want to load a new image, all unsaved progress will be lost.",
+					ButtonType.OK, ButtonType.CANCEL, ButtonType.OK, ButtonType.CANCEL))
+			{
+				return;
+			}
+		}
+		
 		File file = this.fileChooser.showOpenDialog(this.stage);
 		if(file != null)
 		{
