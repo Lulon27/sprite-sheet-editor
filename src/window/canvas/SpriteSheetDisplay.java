@@ -16,6 +16,12 @@ import javafx.scene.paint.Color;
 import window.grid.FrameGrid;
 import window.grid.FrameGridListener;
 
+/**
+ * A UI class that uses a JavaFX Canvas to draw the sprite sheet being edited.
+ * This class also used a <code>FrameGrid</code> instance to handle the logic.
+ * 
+ * @author Andreas Wegner
+ */
 public class SpriteSheetDisplay implements FrameGridListener
 {
 	private Canvas canvas;

@@ -4,6 +4,12 @@ import java.net.URL;
 import javafx.scene.Parent;
 import ui.UILoader.LoadingBehavior;
 
+/**
+ * This class is used internally by the <code>UILoader</code> to store information about the
+ * registered components.
+ * 
+ * @author Andreas Wegner
+ */
 public class UIComponent
 {
 	boolean isLoaded;

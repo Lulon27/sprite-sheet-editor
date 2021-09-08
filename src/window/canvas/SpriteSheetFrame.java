@@ -1,5 +1,11 @@
 package window.canvas;
 
+/**
+ * This class represents a single frame in a <code>FrameGrid</code>.
+ * 
+ * @author Andreas Wegner
+ */
+
 public class SpriteSheetFrame
 {
 	public int x;

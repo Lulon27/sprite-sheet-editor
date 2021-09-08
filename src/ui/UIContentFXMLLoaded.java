@@ -2,6 +2,11 @@ package ui;
 
 import javafx.scene.Parent;
 
+/**
+ * <code>UIContent</code> implementation of JavaFX elements that have been
+ * initialized by the <code>FXMLLoader</code>.
+ * @author Andreas Wegner
+ */
 public class UIContentFXMLLoaded implements UIContent
 {
 	private Parent root;

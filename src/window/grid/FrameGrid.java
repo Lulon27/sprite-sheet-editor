@@ -6,6 +6,11 @@ import java.util.function.Function;
 import window.canvas.FramePatternGenerator;
 import window.canvas.SpriteSheetFrame;
 
+/**
+ * This class handles the logic and controls of the main sprite sheet display.
+ * 
+ * @author Andreas Wegner
+ */
 public class FrameGrid
 {
 	public enum MergeDirection

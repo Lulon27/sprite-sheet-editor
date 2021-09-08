@@ -5,6 +5,12 @@ import java.util.List;
 import window.canvas.FramePatternGenerator;
 import window.canvas.SpriteSheetFrame;
 
+/**
+ * This is a frame pattern generator that creates a grid pattern
+ * with a specified number of rows and columns.
+ * 
+ * @author Andreas Wegner
+ */
 public class FrameGridGenerator implements FramePatternGenerator
 {
 	private final int rows;

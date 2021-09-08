@@ -12,6 +12,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import window.Window;
 
+/**
+ * Main class for all UI related functions.
+ * 
+ * Windows and UI components can be registered here in order to allow better information transfer
+ * between windows and UI components.
+ * 
+ * @author Andreas Wegner
+ */
 public class UILoader
 {
 	private UILoader()

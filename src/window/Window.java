@@ -2,6 +2,12 @@ package window;
 
 import javafx.stage.Stage;
 
+/**
+ * Window class that wraps the JavaFX Stage class.
+ * This is used internally by the <code>UILoader</code>.
+ * 
+ * @author Andreas Wegner
+ */
 public class Window
 {
 	protected Stage fxStage;
@@ -25,7 +31,6 @@ public class Window
 			{
 				this.fxStage.setX(owner.getX() + owner.getWidth() / 2 - this.fxStage.getWidth() / 2);
 				this.fxStage.setY(owner.getY() + owner.getHeight() / 2 - this.fxStage.getHeight() / 2);
-				System.out.println("sfesf");
 			}
 			this.fxStage.show();
 		});

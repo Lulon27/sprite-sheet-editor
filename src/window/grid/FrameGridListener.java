@@ -3,6 +3,11 @@ package window.grid;
 import java.util.List;
 import window.canvas.SpriteSheetFrame;
 
+/**
+ * Event listener for the <code>FrameGrid</code>.
+ * 
+ * @author Andreas Wegner
+ */
 public interface FrameGridListener
 {
 	public void onSelectionChanged(SpriteSheetFrame newSelected);
