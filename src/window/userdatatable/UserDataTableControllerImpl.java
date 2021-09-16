@@ -169,7 +169,7 @@ public class UserDataTableControllerImpl implements UIController, FrameGridListe
 	public boolean onFramesMerging(SpriteSheetFrame origin, List<SpriteSheetFrame> mergeWith,
 		SpriteSheetFrame newFrame)
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
