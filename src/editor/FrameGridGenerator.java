@@ -34,7 +34,6 @@ public class FrameGridGenerator implements FramePatternGenerator
 			for(x = 0; x < columns; ++x)
 			{
 				currentFrame = new SpriteSheetFrame(x * frameWidth, y * frameHeight, frameWidth, frameHeight);
-				currentFrame.userData = new SpriteSheetFrameInfo();
 				frames.add(currentFrame);
 			}
 		}

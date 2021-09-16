@@ -1,5 +1,7 @@
 package window.canvas;
 
+import editor.userdata.UserDataHandle;
+
 /**
  * This class represents a single frame in a <code>FrameGrid</code>.
  * 
@@ -13,7 +15,7 @@ public class SpriteSheetFrame
 	public int width;
 	public int height;
 	
-	public Object userData;
+	private UserDataHandle userDataHandle;
 	
 	public SpriteSheetFrame(int x, int y, int width, int height)
 	{
@@ -21,5 +23,15 @@ public class SpriteSheetFrame
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+	
+	public void setUserDataHandle(UserDataHandle handle)
+	{
+		this.userDataHandle = handle;
+	}
+	
+	public UserDataHandle getUserDataHandle()
+	{
+		return this.userDataHandle;
 	}
 }

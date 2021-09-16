@@ -3,8 +3,11 @@ package ui;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Supplier;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -62,8 +65,13 @@ public class UILoader
 		return h.window;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T extends UIController> Supplier<T> registerUIComponentFXML(String id, URL fxmlURL, LoadingBehavior loadingBehavior)
+	{
+		return registerUIComponentFXML(id, fxmlURL, loadingBehavior, 0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends UIController> Supplier<T> registerUIComponentFXML(String id, URL fxmlURL, LoadingBehavior loadingBehavior, int loadPriority)
 	{
 		if(fxmlURL == null)
 		{
@@ -72,18 +80,26 @@ public class UILoader
 		UIComponent comp = new UIComponent(id);
 		comp.loadURL = fxmlURL;
 		comp.loadingBehavior = loadingBehavior;
+		comp.loadPriority = loadPriority;
 		registeredComponents.put(id, comp);
 		return () -> (T)comp.controller;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T extends UIController> Supplier<T> registerUIComponent(String id, UIContent content, Class<? extends UIController> controllerClass,
 			LoadingBehavior loadingBehavior)
+	{
+		return registerUIComponent(id, content, controllerClass, loadingBehavior, 0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends UIController> Supplier<T> registerUIComponent(String id, UIContent content, Class<? extends UIController> controllerClass,
+			LoadingBehavior loadingBehavior, int loadPriority)
 	{
 		UIComponent comp = new UIComponent(id);
 		comp.loadURL = null;
 		comp.loadingBehavior = loadingBehavior;
 		comp.content = content;
+		comp.loadPriority = loadPriority;
 		if (controllerClass != null)
 		{
 			try
@@ -107,7 +123,9 @@ public class UILoader
 	
 	public static void load() throws IOException
 	{
-		for (UIComponent comp : registeredComponents.values())
+		List<UIComponent> compsList = new ArrayList<>(registeredComponents.values());
+		compsList.sort(new LoadPriorityComparator());
+		for (UIComponent comp : compsList)
 		{
 			if (comp.loadingBehavior == LoadingBehavior.ON_INIT)
 			{

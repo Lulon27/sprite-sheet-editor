@@ -35,7 +35,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -44,9 +43,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -58,7 +54,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.MainWindowController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.MainWindowController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -166,7 +162,7 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
                      <children>
-                        <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="rightSplit" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label text="Selected frame" textFill="#9f9f9f">
                                  <font>
@@ -196,37 +192,6 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TableView>
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="Data type" />
-                                  <TableColumn prefWidth="75.0" text="Name" />
-                                    <TableColumn prefWidth="75.0" text="Default value" />
-                                    <TableColumn prefWidth="75.0" text="Current Value" />
-                                </columns>
-                              </TableView>
-                              <HBox spacing="5.0">
-                                 <children>
-                                    <VBox spacing="5.0">
-                                       <children>
-                                          <Label text="Data type" />
-                                          <ComboBox prefWidth="150.0" />
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="5.0">
-                                       <children>
-                                          <Label text="Name" />
-                                          <TextField />
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="5.0">
-                                       <children>
-                                          <Label text="Default value" />
-                                          <TextField />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <Button mnemonicParsing="false" text="Add variable" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

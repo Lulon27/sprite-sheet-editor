@@ -2,6 +2,7 @@ package window;
 
 import java.io.IOException;
 import java.util.function.Supplier;
+
 import javafx.application.Application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -11,6 +12,8 @@ import window.newgrid.NewGridPanelController;
 import window.newgrid.NewGridPanelView;
 import window.newgrid.normal.MenuNormalGridController;
 import window.newgrid.normal.MenuNormalGridView;
+import window.userdatatable.UserDataTableControllerImpl;
+import window.userdatatable.UserDataTableView;
 
 public class SpriteSheetEditor extends Application
 {
@@ -19,6 +22,9 @@ public class SpriteSheetEditor extends Application
 
 	public static Supplier<MenuNormalGridController> CONTROLLER_MENU_NORMAL_GRID = UILoader.registerUIComponent(
 			"new_grid_normal_grid", new MenuNormalGridView(), MenuNormalGridController.class, LoadingBehavior.ON_INIT);
+
+	public static Supplier<UserDataTableControllerImpl> CONTROLLER_USER_DATA_TABLE = UILoader.registerUIComponent(
+			"user_data_table", new UserDataTableView(), UserDataTableControllerImpl.class, LoadingBehavior.ON_INIT, 1000);
 	
 	public static Supplier<MainWindowController> CONTROLLER_MAIN = UILoader.registerUIComponentFXML(
 			"main", SpriteSheetEditor.class.getResource("main.fxml"), LoadingBehavior.ON_INIT);

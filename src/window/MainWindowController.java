@@ -7,16 +7,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import editor.SpriteSheetFrameInfo;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ui.UIController;
+import ui.UILoader;
 import window.canvas.SpriteSheetDisplay;
 import window.canvas.SpriteSheetDisplayListener;
 import window.canvas.SpriteSheetFrame;
@@ -45,6 +47,9 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 	
 	@FXML
 	private Button btnMergeBelow;
+	
+	@FXML
+	private VBox rightSplit;
 	
 	private Stage stage;
 	
@@ -93,7 +98,7 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 			{
 				return SpriteSheetDisplay.COLOR_FRAME_FILL_SELECTED;
 			}
-			if(!((SpriteSheetFrameInfo)frame.userData).isDefaultValues())
+			if(!this.frameGrid.isFrameDefaultValues(frame))
 			{
 				return COLOR_DEFAULT_VAL_CHANGED;
 			}
@@ -104,6 +109,9 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 		
 		this.frameGrid = new FrameGrid();
 		this.spriteSheetDisplay.setFrameGrid(frameGrid);
+		
+		this.rightSplit.getChildren().add(UILoader.getUIHandle("user_data_table").getUIRoot());
+		this.frameGrid.addEventListener(SpriteSheetEditor.CONTROLLER_USER_DATA_TABLE.get());
 	}
 	
 	@FXML
@@ -155,7 +163,6 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 	@Override
 	public boolean onFramesMerging(SpriteSheetFrame origin, List<SpriteSheetFrame> mergeWith, SpriteSheetFrame newFrame)
 	{
-		newFrame.userData = new SpriteSheetFrameInfo();
 		return true;
 	}
 }

@@ -3,6 +3,8 @@ package window.grid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+
+import editor.userdata.UserDataManager;
 import window.canvas.FramePatternGenerator;
 import window.canvas.SpriteSheetFrame;
 
@@ -22,13 +24,22 @@ public class FrameGrid
 	
 	private SpriteSheetFrame selectedFrame;
 	
-	private FrameGridListener eventListener;
+	private List<FrameGridListener> eventListeners;
 	
 	private int imgWidth, imgHeight;
+	
+	private UserDataManager userDataManager;
 	
 	public FrameGrid()
 	{
 		this.frames = new ArrayList<>();
+		this.eventListeners = new ArrayList<>();
+		this.userDataManager = new UserDataManager();
+	}
+	
+	public UserDataManager getUserDataManager()
+	{
+		return this.userDataManager;
 	}
 	
 	public void updateImgSize(int w, int h)
@@ -49,16 +60,27 @@ public class FrameGrid
 	
 	private boolean fireEvent(Function<FrameGridListener, Boolean> eventFunc)
 	{
-		if(this.eventListener != null)
+		boolean eventSucess = true;
+		for(FrameGridListener listener : this.eventListeners)
 		{
-			return eventFunc.apply(this.eventListener);
+			if(!eventFunc.apply(listener))
+			{
+				eventSucess = false;
+			}
 		}
-		return true;
+		return eventSucess;
 	}
 	
-	public void setEventListener(FrameGridListener listener)
+	public void addEventListener(FrameGridListener listener)
 	{
-		this.eventListener = listener;
+		this.eventListeners.add(listener);
+		listener.onAttachListener(this);
+	}
+	
+	public void removeEventListener(FrameGridListener listener)
+	{
+		this.eventListeners.remove(listener);
+		listener.onDetachListener(this);
 	}
 	
 	public SpriteSheetFrame getSelectedFrame()
@@ -92,7 +114,11 @@ public class FrameGrid
 	{
 		this.frames.clear();
 		this.setSelectedFrame(null);
-		this.frames = generator.generate(imgWidth, imgHeight);
+		List<SpriteSheetFrame> generatedFrames = generator.generate(imgWidth, imgHeight);
+		for(int i = 0; i < generatedFrames.size(); ++i)
+		{
+			this.addSpriteSheetFrame(generatedFrames.get(i));
+		}
 		this.fireEvent(e -> {e.onShouldRedraw(); return true;});
 	}
 	
@@ -104,6 +130,12 @@ public class FrameGrid
 	public SpriteSheetFrame getFrame(int index)
 	{
 		return this.frames.get(index);
+	}
+	
+	private void addSpriteSheetFrame(SpriteSheetFrame frame)
+	{
+		frame.setUserDataHandle(this.userDataManager.newHandle());
+		this.frames.add(frame);
 	}
 	
 	public void mergeFrames(MergeDirection mergeDirection, SpriteSheetFrame origin)
@@ -129,7 +161,7 @@ public class FrameGrid
 		}
 		framesToMerge.add(origin);
 		this.frames.removeAll(framesToMerge);
-		this.frames.add(replacement);
+		this.addSpriteSheetFrame(replacement);
 		this.setSelectedFrame(replacement);
 		this.fireEvent(e -> {e.onShouldRedraw(); return true;});
 	}
@@ -256,5 +288,15 @@ public class FrameGrid
 		}
 		return new SpriteSheetFrame(origin.x, origin.y,
 				origin.width, origin.height + lastOtherHeight);
+	}
+	
+	public boolean isFrameDefaultValues(SpriteSheetFrame frame)
+	{
+		return this.userDataManager.isHandleDefaultValues(frame.getUserDataHandle());
+	}
+	
+	public boolean isFrameDefaultValues(int frameIndex)
+	{
+		return this.isFrameDefaultValues(this.frames.get(frameIndex));
 	}
 }

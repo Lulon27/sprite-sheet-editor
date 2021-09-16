@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.Canvas;
@@ -68,7 +69,10 @@ public class SpriteSheetDisplay implements FrameGridListener
 		boolean eventSuccess = true;
 		for(SpriteSheetDisplayListener e : this.eventListeners)
 		{
-			eventSuccess = e.onFramesMerging(origin, mergeWith, newFrame);
+			if(!e.onFramesMerging(origin, mergeWith, newFrame))
+			{
+				eventSuccess = false;
+			}
 		}
 		return eventSuccess;
 	}
@@ -87,11 +91,11 @@ public class SpriteSheetDisplay implements FrameGridListener
 	{
 		if(this.frameGrid != null)
 		{
-			this.frameGrid.setEventListener(null);
+			this.frameGrid.removeEventListener(this);
 		}
 		
 		this.frameGrid = frameGrid;
-		this.frameGrid.setEventListener(this);
+		this.frameGrid.addEventListener(this);
 	}
 	
 	public FrameGrid getFrameGrid()
@@ -193,8 +197,6 @@ public class SpriteSheetDisplay implements FrameGridListener
 			currentFrame = this.frameGrid.getFrame(i);
 			this.drawFrameOverlay(currentFrame);
 		}
-		this.canvasGraphics.setFill(Color.BLACK);
-		this.canvasGraphics.fillText("fsefef", 100, 100);
 		System.out.println("Redraw took: " + ((System.nanoTime() - timeStart) / 1_000_000) + " ms");
 	}
 

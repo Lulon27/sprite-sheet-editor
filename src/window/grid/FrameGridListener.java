@@ -1,6 +1,7 @@
 package window.grid;
 
 import java.util.List;
+
 import window.canvas.SpriteSheetFrame;
 
 /**
@@ -10,6 +11,16 @@ import window.canvas.SpriteSheetFrame;
  */
 public interface FrameGridListener
 {
+	public default void onAttachListener(FrameGrid frameGrid)
+	{
+		
+	}
+	
+	public default void onDetachListener(FrameGrid frameGrid)
+	{
+		
+	}
+	
 	public void onSelectionChanged(SpriteSheetFrame newSelected);
 	
 	public void onShouldRedraw();

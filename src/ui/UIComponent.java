@@ -18,6 +18,7 @@ public class UIComponent
 	UIController controller;
 	UIContent content;
 	final String id;
+	int loadPriority;
 	
 	UIComponent(String id)
 	{
