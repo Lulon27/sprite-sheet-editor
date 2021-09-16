@@ -21,7 +21,7 @@ public class UserDataHandle
 		this.individualValues.get(globalValueIndex).setCurrentValue(inputStr);
 	}
 	
-	public void addUserDataValue(UserDataValue globalValue)
+	void addUserDataValue(UserDataValue globalValue)
 	{
 		this.individualValues.add(new UserDataValueIndividual(globalValue));
 	}
@@ -41,5 +41,17 @@ public class UserDataHandle
 		UserDataValueIndividual tmp = this.individualValues.get(index1);
 		this.individualValues.set(index1, this.individualValues.get(index2));
 		this.individualValues.set(index2, tmp);
+	}
+	
+	public boolean checkParseErrors()
+	{
+		for(int i = 0; i < this.individualValues.size(); ++i)
+		{
+			if(this.individualValues.get(i).checkParseError())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

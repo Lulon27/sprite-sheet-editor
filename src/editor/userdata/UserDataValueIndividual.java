@@ -36,4 +36,9 @@ public class UserDataValueIndividual
 	{
 		this.currentValueStr = currentValueStr;
 	}
+	
+	public boolean checkParseError()
+	{
+		return this.ref.getDataType().getDataTypeVerifier().parseValue(this.currentValueStr) == null;
+	}
 }

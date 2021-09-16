@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import window.grid.FrameGrid;
 import window.grid.FrameGridListener;
+import window.grid.FrameHighlightColors;
 
 /**
  * A UI class that uses a JavaFX Canvas to draw the sprite sheet being edited.
@@ -28,10 +28,6 @@ public class SpriteSheetDisplay implements FrameGridListener
 	private Canvas canvas;
 	private GraphicsContext canvasGraphics;
 	
-	public static final Color COLOR_FRAME_FILL_UNSELECTED = new Color(1.0D, 0.0D, 0.0D, 0.05D);
-	
-	public static final Color COLOR_FRAME_FILL_SELECTED = new Color(0.0D, 1.0D, 0.0D, 0.25D);
-	
 	private ObjectProperty<Image> currentImage;
 
 	private FrameGrid frameGrid;
@@ -40,8 +36,6 @@ public class SpriteSheetDisplay implements FrameGridListener
 	
 	private List<SpriteSheetDisplayListener> eventListeners;
 	
-	private Function<SpriteSheetFrame, Color> colorFunction;
-	
 	public SpriteSheetDisplay(Canvas canvas)
 	{
 		this.eventListeners = new ArrayList<>();
@@ -49,14 +43,6 @@ public class SpriteSheetDisplay implements FrameGridListener
 		this.canvasGraphics = this.canvas.getGraphicsContext2D();
 		this.selectedFrame = new SimpleObjectProperty<>(null);
 		this.currentImage = new SimpleObjectProperty<Image>(null);
-		this.colorFunction = frame ->
-		{
-			if (frame == this.selectedFrame.getValue())
-			{
-				return COLOR_FRAME_FILL_SELECTED;
-			}
-			return COLOR_FRAME_FILL_UNSELECTED;
-		};
 	}
 	
 	private void fireEventSelectedFrame(SpriteSheetFrame frame)
@@ -80,11 +66,6 @@ public class SpriteSheetDisplay implements FrameGridListener
 	public void addEventListener(SpriteSheetDisplayListener eventListener)
 	{
 		this.eventListeners.add(eventListener);
-	}
-	
-	public void setColorFunction(Function<SpriteSheetFrame, Color> func)
-	{
-		this.colorFunction = func;
 	}
 	
 	public void setFrameGrid(FrameGrid frameGrid)
@@ -179,7 +160,7 @@ public class SpriteSheetDisplay implements FrameGridListener
 	
 	private void drawFrameOverlay(SpriteSheetFrame frame)
 	{
-		final Color c = this.colorFunction.apply(frame);
+		final Color c = FrameHighlightColors.getFrameHighlightColor(this.frameGrid, frame);
 		this.canvasGraphics.setFill(c);
 		this.canvasGraphics.fillRect(frame.x, frame.y, frame.width, frame.height);
 		this.canvasGraphics.setStroke(new Color(c.getRed() * 0.5F, c.getGreen() * 0.5F, c.getBlue() * 0.5F, 1.0F));

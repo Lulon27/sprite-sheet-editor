@@ -14,7 +14,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ui.UIController;
@@ -57,8 +56,6 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 	
 	private FileChooser fileChooser;
 	
-	private static final Color COLOR_DEFAULT_VAL_CHANGED = new Color(0.9F, 0.75F, 0.0F, 0.5F);
-	
 	private FrameGrid frameGrid;
 	
 	public MainWindowController()
@@ -91,19 +88,6 @@ public class MainWindowController implements Initializable, SpriteSheetDisplayLi
 		this.btnMergeRight.setOnAction(e -> this.spriteSheetDisplay.mergeFrames(MergeDirection.RIGHT, this.spriteSheetDisplay.getSelectedFrame()));
 		this.btnMergeAbove.setOnAction(e -> this.spriteSheetDisplay.mergeFrames(MergeDirection.ABOVE, this.spriteSheetDisplay.getSelectedFrame()));
 		this.btnMergeBelow.setOnAction(e -> this.spriteSheetDisplay.mergeFrames(MergeDirection.BELOW, this.spriteSheetDisplay.getSelectedFrame()));
-		
-		this.spriteSheetDisplay.setColorFunction(frame ->
-		{
-			if(frame == this.spriteSheetDisplay.getSelectedFrame())
-			{
-				return SpriteSheetDisplay.COLOR_FRAME_FILL_SELECTED;
-			}
-			if(!this.frameGrid.isFrameDefaultValues(frame))
-			{
-				return COLOR_DEFAULT_VAL_CHANGED;
-			}
-			return SpriteSheetDisplay.COLOR_FRAME_FILL_UNSELECTED;
-		});
 		
 		this.spriteSheetDisplay.addEventListener(this);
 		

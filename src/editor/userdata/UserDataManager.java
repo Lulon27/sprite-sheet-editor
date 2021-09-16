@@ -137,4 +137,9 @@ public class UserDataManager
 		
 		return true;
 	}
+	
+	public boolean checkParseErrors(UserDataHandle handle)
+	{
+		return handle.checkParseErrors();
+	}
 }

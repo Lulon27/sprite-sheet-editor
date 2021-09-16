@@ -58,5 +58,10 @@ public final class UserDataValue
 		this.userDataManager.setUserDataDefaultValue(this, defaultValueStr, syncDefault);
 	}
 	
+	public boolean checkParseErrorDefaultValue()
+	{
+		return this.dataType.getDataTypeVerifier().parseValue(this.defaultValueStr) == null;
+	}
+	
 	//Write to data methods...
 }
