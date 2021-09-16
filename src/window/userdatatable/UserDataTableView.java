@@ -3,6 +3,7 @@ package window.userdatatable;
 import editor.userdata.UserDataValueType;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -14,6 +15,7 @@ import ui.UIControl;
 
 public class UserDataTableView implements UIContent
 {
+	@UIControl
 	private VBox root;
 	
 	@UIControl
@@ -34,6 +36,9 @@ public class UserDataTableView implements UIContent
 	@UIControl
 	private Label statusText;
 	
+	@UIControl
+	private CheckBox checkboxSyncDefaultValues;
+	
 	@Override
 	public Parent getRoot()
 	{
@@ -43,6 +48,10 @@ public class UserDataTableView implements UIContent
 	@Override
 	public void initializeUI()
 	{
+		this.checkboxSyncDefaultValues = new CheckBox("If the current value is the default value, automatically change the current value when the default value changes");
+		this.checkboxSyncDefaultValues.setWrapText(true);
+		this.checkboxSyncDefaultValues.setSelected(true);
+		
 		this.userDataTable = new TableView<>();
 		
 		this.valueType = new ComboBox<>();
@@ -61,6 +70,6 @@ public class UserDataTableView implements UIContent
 		
 		HBox hboxVarSettings = new HBox(5, vboxDataType, vboxName, vboxDefaultValue);
 		
-		this.root = new VBox(5, this.userDataTable, hboxVarSettings, this.buttonAddVariable, this.statusText);
+		this.root = new VBox(5, this.checkboxSyncDefaultValues, this.userDataTable, this.statusText, hboxVarSettings, this.buttonAddVariable);
 	}
 }

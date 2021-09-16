@@ -1,5 +1,7 @@
 package window.userdatatable;
 
+import java.util.function.Consumer;
+
 import editor.userdata.UserDataValue;
 import editor.userdata.UserDataValueIndividual;
 import editor.userdata.UserDataValueType;
@@ -21,64 +23,62 @@ public class UserDataValueTableItem
 	
 	private int indexInTable;
 	
-	UserDataValueTableItem(int indexInTable, UserDataValue globalValueRef, UserDataValueIndividual frameIndividualValue)
+	UserDataValueTableItem(int indexInTable, UserDataValue globalValueRef,
+		UserDataValueIndividual frameIndividualValue)
 	{
-		this.dataTypeProperty = new SimpleObjectProperty<>();
-		this.nameProperty = new SimpleStringProperty();
-		this.defaultValueProperty = new SimpleStringProperty();
-		this.currentValueProperty = new SimpleStringProperty();
+		this.indexInTable = indexInTable;
+		this.globalValueRef = globalValueRef;
+		this.frameIndividualValue = frameIndividualValue;
 		
+		this.dataTypeProperty = new SimpleObjectProperty<>(this.globalValueRef.getDataType());
+		this.nameProperty = new SimpleStringProperty(this.globalValueRef.getName());
+		this.defaultValueProperty = new SimpleStringProperty(this.globalValueRef.getDefaultValueStr());
+		this.currentValueProperty = new SimpleStringProperty(
+			this.frameIndividualValue != null ? this.frameIndividualValue.getCurrentValueStr() : "");
+	}
+	
+	public void addOnDataTypeChanged(Consumer<UserDataValueType> callback)
+	{
 		this.dataTypeProperty.addListener((v, oldVal, newVal) ->
 		{
 			if(oldVal != null)
 			{
-				globalValueRef.setDataType(newVal);
+				callback.accept(newVal);
 			}
 		});
-		
+	}
+	
+	public void addOnNameChanged(Consumer<String> callback)
+	{
 		this.nameProperty.addListener((v, oldVal, newVal) ->
 		{
 			if(oldVal != null)
 			{
-				globalValueRef.setName(newVal);
+				callback.accept(newVal);
 			}
 		});
-		
+	}
+	
+	public void addOnDefaultValueChanged(Consumer<String> callback)
+	{
 		this.defaultValueProperty.addListener((v, oldVal, newVal) ->
 		{
 			if(oldVal != null)
 			{
-				globalValueRef.setDefaultValue(newVal);
+				callback.accept(newVal);
 			}
 		});
-		
+	}
+	
+	public void addOnCurrentValueChanged(Consumer<String> callback)
+	{
 		this.currentValueProperty.addListener((v, oldVal, newVal) ->
 		{
 			if(oldVal != null)
 			{
-				frameIndividualValue.setCurrentValue(newVal);
+				callback.accept(newVal);
 			}
 		});
-		
-		this.updateUserDataValueInstance(indexInTable, globalValueRef, frameIndividualValue);
-	}
-	
-	void updateUserDataValueInstance(int indexInTable, UserDataValue globalValueRef, UserDataValueIndividual frameIndividualValue)
-	{
-		this.globalValueRef = globalValueRef;
-		this.frameIndividualValue = frameIndividualValue;
-		this.nameProperty.setValue(this.globalValueRef.getName());
-		this.dataTypeProperty.setValue(this.globalValueRef.getDataType());
-		this.defaultValueProperty.setValue(this.globalValueRef.getDefaultValueStr());
-		if(this.frameIndividualValue != null)
-		{
-			this.currentValueProperty.setValue(this.frameIndividualValue.getCurrentValueStr());
-		}
-		else
-		{
-			this.currentValueProperty.setValue("");
-		}
-		this.indexInTable = indexInTable;
 	}
 	
 	UserDataValue getGlobalValueRef()

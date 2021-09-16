@@ -37,8 +37,10 @@ public class UserDataManager
 		return this.userDataValues.get(index);
 	}
 	
-	public void addUserDataValue(UserDataValue value)
+	public void addUserDataValue(UserDataValueType dataType, String name, String defaultValueStr)
 	{
+		UserDataValue value = new UserDataValue(this, dataType, name, defaultValueStr);
+		
 		//Add the value to the global list and then add an individual value for each frame
 		for(int i = 0; i < this.handles.size(); ++i)
 		{
@@ -83,8 +85,23 @@ public class UserDataManager
 		return false;
 	}
 	
-	public void setUserDataDefaultValue(UserDataValue value, String defaultValueStr)
+	public void setUserDataDefaultValue(UserDataValue value, String defaultValueStr, boolean syncDefault)
 	{
+		if(syncDefault)
+		{
+			int globalValueIndex = this.userDataValues.indexOf(value);
+			
+			UserDataHandle handle;
+			for(int i = 0; i < this.handles.size(); ++i)
+			{
+				handle = this.handles.get(i);
+				if(handle.getUserDataValue(globalValueIndex).getCurrentValueStr().equals(value.getDefaultValueStr()))
+				{
+					handle.getUserDataValue(globalValueIndex).setCurrentValue(defaultValueStr);
+				}
+			}
+		}
+		
 		value.setDefaultValue(defaultValueStr);
 	}
 	

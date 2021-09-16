@@ -2,17 +2,25 @@ package editor.userdata;
 
 public final class UserDataValue
 {
+	private final UserDataManager userDataManager;
+	
 	private UserDataValueType dataType;
 	
 	private String name;
 	
 	private String defaultValueStr;
 	
-	public UserDataValue(UserDataValueType dataType, String name, String defaultValueStr)
+	UserDataValue(UserDataManager userDataManager, UserDataValueType dataType, String name, String defaultValueStr)
 	{
+		this.userDataManager = userDataManager;
 		this.dataType = dataType;
 		this.name = name;
 		this.defaultValueStr = defaultValueStr;
+	}
+	
+	public UserDataManager getUserDataManager()
+	{
+		return this.userDataManager;
 	}
 	
 	public String getName()
@@ -43,6 +51,11 @@ public final class UserDataValue
 	public void setDefaultValue(String defaultValueStr)
 	{
 		this.defaultValueStr = defaultValueStr;
+	}
+	
+	public void setDefaultValue(String defaultValueStr, boolean syncDefault)
+	{
+		this.userDataManager.setUserDataDefaultValue(this, defaultValueStr, syncDefault);
 	}
 	
 	//Write to data methods...
